@@ -33,6 +33,7 @@ class App extends Component {
       editItem: false
     })
   }
+
   clearList = () => {
     this.setState({ items: [] });
   }
@@ -48,7 +49,8 @@ class App extends Component {
     this.setState({
       items: filteredItems,
       item: selectedItem.title,
-      id: id
+      id: id,
+      editItem: true
     })
   }
 
