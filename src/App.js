@@ -4,6 +4,7 @@ import uuid from 'uuid';
 import "bootstrap/dist/css/bootstrap.min.css";
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
+
 class App extends Component {
   state = {
     items: [],
@@ -30,27 +31,34 @@ class App extends Component {
       item: "",
       id: uuid(),
       editItem: false
-    },
-      () => console.log(this.state)
-    )
+    })
   }
   clearList = () => {
-    console.log("clear list");
+    this.setState({ items: [] });
   }
+
   handleDelete = id => {
-    console.log(`handle delete ${id}`);
+    const filteredItems = this.state.items.filter(item => item.id !== id);
+    this.setState({ items: filteredItems });
   }
+
   handleEdit = id => {
-    console.log(`handle edit ${id}`);
+    const filteredItems = this.state.items.filter(item => item.id !== id);
+    const selectedItem = this.state.items.find(item => item.id === id);
+    this.setState({
+      items: filteredItems,
+      item: selectedItem.title,
+      id: id
+    })
   }
 
   render() {
-    console.log(this.state);
     return (
-      <div className="container">
+      <div className="container" style={{ background: "#1B4F72" }}>
         <div className="row">
           <div className="col-10 mx-auto col-md-8 mt-5">
-            <h3 className="text-capiitalize text-center">todo input</h3>
+            <h1 className="text-capitalize text-center text-white">to-do app!!!</h1>
+            <h3 className="text-capitalize text-center text-white mt-3">please add a new task below</h3>
             <TodoInput
               item={this.state.item}
               handleChange={this.handleChange}
@@ -61,7 +69,7 @@ class App extends Component {
               items={this.state.items}
               clearList={this.clearList}
               handleDelete={this.handleDelete}
-              handleEid={this.handleEidt}
+              handleEdit={this.handleEdit}
             />
           </div>
         </div>
